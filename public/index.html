@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Cybersecurity Demo Project</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Courier New', monospace; background: #0a0e27; color: #00ff9d; padding: 20px; }
+        .container { max-width: 1400px; margin: auto; }
+        h1 { text-align: center; margin-bottom: 20px; text-shadow: 0 0 10px #00ff9d; }
+        .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(400px, 1fr)); gap: 20px; }
+        .card { background: #1a1f3a; border-radius: 10px; padding: 20px; border: 1px solid #00ff9d; }
+        .card h2 { color: #ffd700; margin-bottom: 15px; }
+        .vulnerable { border-color: #ff4444; }
+        .vulnerable h2 { color: #ff4444; }
+        .secure { border-color: #00ff9d; }
+        .secure h2 { color: #00ff9d; }
+        input, button { padding: 8px; margin: 5px; font-family: monospace; }
+        input { background: #0a0e27; color: #00ff9d; border: 1px solid #00ff9d; width: 200px; }
+        button { background: #00ff9d; color: #0a0e27; cursor: pointer; font-weight: bold; border: none; }
+        button:hover { background: #00cc7d; }
+        pre { background: #0a0e27; padding: 10px; overflow-x: auto; font-size: 12px; margin-top: 10px; }
+        .badge { display: inline-block; padding: 3px 8px; border-radius: 12px; font-size: 11px; margin: 2px; }
+        .green { background: #00ff9d20; color: #00ff9d; border: 1px solid #00ff9d; }
+        .red { background: #ff444420; color: #ff4444; border: 1px solid #ff4444; }
+        .yellow { background: #ffd70020; color: #ffd700; border: 1px solid #ffd700; }
+        hr { border-color: #00ff9d30; margin: 15px 0; }
+    </style>
+</head>
+<body>
+<div class="container">
+    <h1>🔐 Cybersecurity Demo Project</h1>
+    <p style="text-align:center">Weeks 4-6: Threat Detection | Ethical Hacking | Security Audits</p>
+    <br>
+    
+    <div class="grid">
+        <!-- Week 4: Secure API -->
+        <div class="card secure">
+            <h2>🛡️ Week 4: Secure API</h2>
+            <div><span class="badge green">CSP Active</span> <span class="badge green">HSTS</span> <span class="badge green">Rate Limited</span></div>
+            <hr>
+            <button onclick="testHealth()">GET /api/health</button>
+            <button onclick="testSecureUsers()">GET /api/users (with API Key)</button>
+            <pre id="week4Result">Click to test...</pre>
+            <p><small>🔑 API Key: dev-api-key-123 (add to X-API-Key header)</small></p>
+        </div>
+        
+        <!-- Week 5: SQL Injection Demo -->
+        <div class="card vulnerable">
+            <h2>🐛 Week 5: SQL Injection Demo</h2>
+            <div><span class="badge red">VULNERABLE</span> <span class="badge yellow">For Educational Purposes</span></div>
+            <hr>
+            <p><strong>Vulnerable Endpoint (SQL Injection)</strong></p>
+            <input type="text" id="vulnUser" placeholder="Username" value="admin">
+            <input type="text" id="vulnPass" placeholder="Password" value="admin123">
+            <button onclick="testVulnerable()">Test Login</button>
+            <button onclick="testSQLInjection()">SQL Injection: ' OR '1'='1' --</button>
+            <pre id="vulnResult">Click to test...</pre>
+            <hr>
+            <p><strong>Secure Endpoint (Prepared Statements)</strong></p>
+            <input type="text" id="secureUser" placeholder="Username" value="admin">
+            <input type="text" id="securePass" placeholder="Password" value="admin123">
+            <button onclick="testSecure()">Secure Login</button>
+            <pre id="secureResult">Click to test...</pre>
+        </div>
+        
+        <!-- Week 6: Security Audit -->
+        <div class="card">
+            <h2>📊 Week 6: Security Audits</h2>
+            <div><span class="badge green">Lynis: 67/100</span> <span class="badge green">Nikto: Passed</span></div>
+            <hr>
+            <button onclick="testHeaders()">View Security Headers</button>
+            <button onclick="testRateLimit()">Test Rate Limit</button>
+            <pre id="auditResult">Click to test...</pre>
+        </div>
+    </div>
+    
+    <br>
+    <div class="card">
+        <h2>📈 Project Summary</h2>
+        <table style="width:100%; border-collapse: collapse;">
+            <tr style="border-bottom:1px solid #00ff9d"><th>Week</th><th>Topic</th><th>Key Achievements</th></tr>
+            <tr><td>Week 4</td><td>Threat Detection</td><td>API Security, CSP, HSTS, Rate Limiting, Fail2Ban</td></tr>
+            <tr><td>Week 5</td><td>Ethical Hacking</td><td>SQLMap, SQL Injection Fix, CSRF Protection</td></tr>
+            <tr><td>Week 6</td><td>Security Audits</td><td>OWASP ZAP, Nikto, Lynis, Docker Security</td></tr>
+        </table>
+    </div>
+</div>
+
+<script>
+    const API = 'http://localhost:3000';
+    
+    async function testHealth() {
+        const res = await fetch(`${API}/api/health`);
+        const data = await res.json();
+        document.getElementById('week4Result').innerHTML = JSON.stringify(data, null, 2);
+    }
+    
+    async function testSecureUsers() {
+        const res = await fetch(`${API}/api/users`, { headers: { 'X-API-Key': 'dev-api-key-123' } });
+        const data = await res.json();
+        document.getElementById('week4Result').innerHTML = JSON.stringify(data, null, 2);
+    }
+    
+    async function testVulnerable() {
+        const u = document.getElementById('vulnUser').value;
+        const p = document.getElementById('vulnPass').value;
+        const res = await fetch(`${API}/api/vulnerable/login?username=${encodeURIComponent(u)}&password=${encodeURIComponent(p)}`);
+        const data = await res.json();
+        document.getElementById('vulnResult').innerHTML = JSON.stringify(data, null, 2);
+    }
+    
+    async function testSQLInjection() {
+        const payload = "' OR '1'='1' --";
+        const res = await fetch(`${API}/api/vulnerable/login?username=${encodeURIComponent(payload)}&password=anything`);
+        const data = await res.json();
+        document.getElementById('vulnResult').innerHTML = JSON.stringify(data, null, 2);
+    }
+    
+    async function testSecure() {
+        const u = document.getElementById('secureUser').value;
+        const p = document.getElementById('securePass').value;
+        const res = await fetch(`${API}/api/secure/login?username=${encodeURIComponent(u)}&password=${encodeURIComponent(p)}`);
+        const data = await res.json();
+        document.getElementById('secureResult').innerHTML = JSON.stringify(data, null, 2);
+    }
+    
+    async function testHeaders() {
+        const res = await fetch(`${API}/api/security-headers`);
+        const data = await res.json();
+        document.getElementById('auditResult').innerHTML = JSON.stringify(data, null, 2);
+    }
+    
+    async function testRateLimit() {
+        let results = [];
+        for (let i = 1; i <= 105; i++) {
+            const res = await fetch(`${API}/api/health`);
+            results.push(`Request ${i}: ${res.status}`);
+            if (res.status === 429) break;
+        }
+        document.getElementById('auditResult').innerHTML = results.join('\n');
+    }
+</script>
+</body>
+</html>
