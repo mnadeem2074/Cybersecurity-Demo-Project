@@ -3,24 +3,28 @@
 ## A Complete Web Security & Ethical Hacking Platform
 
 [![License](https://img.shields.io/badge/License-Internship-blue)](#)
-[![Node Version](https://img.shields.io/badge/node-%3E%3D16.0.0-brightgreen)](#)
-[![Security Headers](https://img.shields.io/badge/Security%20Headers-Active-success)](#)
+[![Node Version](https://img.shields.io/badge/node-%3E%3D16.0.0-brightgreen)](https://nodejs.org/)
+[![Security Headers](https://img.shields.io/badge/Security%20Headers-Active-success)](https://helmetjs.github.io/)
+[![OWASP Top 10](https://img.shields.io/badge/OWASP%20Top%2010-Compliant-blue)](https://owasp.org/Top10/)
 
 This project is a **comprehensive demonstration of real-world web application security**. It was developed as the final portfolio for my cybersecurity internship at **DevelopersHub Corporation**. The platform deliberately includes both **vulnerable** (for learning attack vectors) and **secure** (for implementing defenses) versions of common web features.
 
 ---
 
 ## 📖 Table of Contents
-1. [Project Purpose](#-project-purpose)
-2. [Live Demonstration](#-live-demonstration)
-3. [Security Features Deep Dive](#-security-features-deep-dive)
-4. [Vulnerability Demos (Educational)](#-vulnerability-demos-educational)
-5. [Security Audit & Tooling](#-security-audit--tooling)
+
+1. [Quick Start](#-quick-start)
+2. [Project Purpose](#-project-purpose)
+3. [Live Demonstration](#-live-demonstration)
+4. [Security Features Deep Dive](#-security-features-deep-dive)
+5. [Vulnerability Demos (Educational)](#-vulnerability-demos-educational)
 6. [API Reference & Testing](#-api-reference--testing)
-7. [Architecture & Tech Stack](#-architecture--tech-stack)
+7. [Security Audit & Tooling](#-security-audit--tooling)
 8. [OWASP Top 10 Compliance](#-owasp-top-10-compliance)
-9. [Project Structure](#-project-structure)
-10. [Related Portfolio Repositories](#-related-portfolio-repositories)
+9. [Technology Stack](#-technology-stack)
+10. [Project Structure](#-project-structure)
+11. [Related Portfolio Repositories](#-related-portfolio-repositories)
+12. [Author](#-author)
 
 ---
 
